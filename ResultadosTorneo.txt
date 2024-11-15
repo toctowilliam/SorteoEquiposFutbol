@@ -1,0 +1,10 @@
+RESULTADOS DEL TORNEO:
+
+=== Semifinales ===
+C VS B -> Ganador: C
+D VS A -> Ganador: A
+
+=== Final ===
+A VS C -> Ganador: A
+
+== CAMPEÓN DEL TORNEO: A ==
