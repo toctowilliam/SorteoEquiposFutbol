@@ -3,10 +3,7 @@ package sorteo;
 import java.io.*;
 import java.util.List;
 
-public class Resultado implements Serializable {
-    // Atributo para serialización
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class Resultado{
 
     //Metodo para guardar los resultados en un archivo
     public void guardarResultados(List<String> resultados, String filename) throws IOException {

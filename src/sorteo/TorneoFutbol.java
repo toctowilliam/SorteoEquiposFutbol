@@ -7,49 +7,47 @@ import java.util.Scanner;
 public class TorneoFutbol {
     private static final Scanner scanner = new Scanner(System.in);
     private List<String> resultadosEtapa;
-    private Resultado resultadoManager;
+    private Resultado resultado;
     Equipo equipo = new Equipo();
 
     // Constructor que inicializa resultadoManager y resultadosEtapa
     public TorneoFutbol(Resultado resultadoManager) {
         this.resultadosEtapa = new ArrayList<>();
-        this.resultadoManager = resultadoManager;
+        this.resultado = resultadoManager;
     }
-    public static void main(String[] args) {
-        Resultado resultadoManager = new Resultado();
-        TorneoFutbol torneo = new TorneoFutbol(resultadoManager);
+    public static void main(String[] args) throws EtapaInvalidaException {
+        Resultado objetoResultado = new Resultado();
+        TorneoFutbol torneo = new TorneoFutbol(objetoResultado);
         // Metodo para Iniciar el sorteo de los partidos
         torneo.iniciarTorneo();
     }
 
     public void iniciarTorneo() {
-        int numeroEtapa = seleccionarEtapaInicio();
         try {
+            int numeroEtapa = seleccionarEtapaInicio();
             List<String> equipos = equipo.ingresarEquiposSegunEtapa(numeroEtapa);
             String equipoCampeon = sortearSeleccionarGanadores(equipos, numeroEtapa, "ResultadosTorneo.txt");
 
             System.out.println("\n¡El torneo ha finalizado! \nFELICIDADES AL EQUIPO CAMPEÓN: " + equipoCampeon);
             System.out.println("\nPuede ver los resultados en el archivo generado: 'ResultadosTorneo.txt'");
 
-            // Guardar los resultados al final del torneo
-            Resultado resultado = new Resultado();
             resultado.guardarResultados(resultadosEtapa, "ResultadosTorneo.txt");
 
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Debe ingresar un número entero. Inténtelo de nuevo.");
-            scanner.next();
-        } catch (IOException | EtapaInvalidaException | NumeroEquiposInvalidoException | NombreEquipoDuplicadoException e) {
+        } catch (EtapaInvalidaException | NumeroEquiposInvalidoException | GanadorInvalidoException e) {
             System.out.println("Error: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error al guardar los resultados: " + e.getMessage());
         }
     }
 
-    private int seleccionarEtapaInicio() {
+
+
+    private int seleccionarEtapaInicio() throws EtapaInvalidaException {
         int numeroEtapa = 0;
         boolean entradaValida = false;
 
         while (!entradaValida) {
             try {
-                //Menú de selección de etapa
                 System.out.println("\nBIENVENIDOS! AL PROGRAMA PARA SORTEAR SUS PARTIDOS:\n");
                 System.out.println("Seleccione la etapa de Inicio:");
                 System.out.println("1. Octavos de Final");
@@ -58,15 +56,12 @@ public class TorneoFutbol {
 
                 numeroEtapa = scanner.nextInt();
 
-                // Verificar si el número de etapa es válido
                 if (numeroEtapa < 1 || numeroEtapa > 3) {
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    throw new EtapaInvalidaException("La etapa seleccionada no es válida. Intente nuevamente.");
                 } else {
                     entradaValida = true;
                 }
-
             } catch (InputMismatchException e) {
-                // Manejar excepción si el usuario ingresa un valor incorrecto en este caso un valor no entero
                 System.out.println("Error: Debe ingresar un número entero. Inténtelo de nuevo.");
                 scanner.next();
             }
@@ -75,11 +70,11 @@ public class TorneoFutbol {
     }
 
     // Método recursivo para sortear equipos y seleccionar ganadores
-    private String sortearSeleccionarGanadores(List<String> equipos, int numeroEtapa, String filename) throws IOException {
+    private String sortearSeleccionarGanadores(List<String> equipos, int numeroEtapa, String filename) throws IOException, GanadorInvalidoException {
         if (equipos.size() == 1) {
             String campeon = equipos.get(0);
             resultadosEtapa.add("\n== CAMPEÓN DEL TORNEO: " + campeon + " ==");
-            resultadoManager.guardarResultados(resultadosEtapa, filename);
+            resultado.guardarResultados(resultadosEtapa, filename);
             return campeon;  // El último equipo es el campeón
         }
 
@@ -120,7 +115,7 @@ public class TorneoFutbol {
             resultadosEtapa.add(resultado);
         }
         // Guardar resultados de la etapa en el archivo de texto
-        resultadoManager.guardarResultados(resultadosEtapa, filename);
+        resultado.guardarResultados(resultadosEtapa, filename);
 
         // Si la etapa actual no es la final, mostrar mensaje de sorteo para la siguiente etapa
         if (!etapa.equals("Final")) {
@@ -130,16 +125,15 @@ public class TorneoFutbol {
         return sortearSeleccionarGanadores(ganadores, numeroEtapa + 1, filename);
     }
 
-    private String seleccionarGanador(String equipo1, String equipo2) {
+    private String seleccionarGanador(String equipo1, String equipo2) throws GanadorInvalidoException {
         String ganador = null;
         boolean entradaValida = false;
-        // Bucle para verificar al equipo ganador por el usuario
+
         while (!entradaValida) {
             try {
                 System.out.println("Ganador de este Partido, ingrese un numero: 1: " + equipo1 + "    2: " + equipo2);
-                int opcion = scanner.nextInt(); // Leer la opción del usuario
+                int opcion = scanner.nextInt();
 
-                // Verificar si la opción es válida de los ganadores
                 if (opcion == 1) {
                     ganador = equipo1;
                     entradaValida = true;
@@ -147,9 +141,8 @@ public class TorneoFutbol {
                     ganador = equipo2;
                     entradaValida = true;
                 } else {
-                    System.out.println("Opción no válida. Intente nuevamente.");
+                    throw new GanadorInvalidoException("La opción seleccionada no es válida. Inténtelo nuevamente.");
                 }
-
             } catch (InputMismatchException e) {
                 System.out.println("Error: Debe ingresar un número entero. Inténtelo de nuevo.");
                 scanner.next();
@@ -158,3 +151,18 @@ public class TorneoFutbol {
         return ganador;
     }
 }
+
+// Excepción para etapa inválida
+class EtapaInvalidaException extends Exception {
+    public EtapaInvalidaException(String message) {
+        super(message);
+    }
+}
+
+// Excepción para ganador inválido
+class GanadorInvalidoException extends Exception {
+    public GanadorInvalidoException(String message) {
+        super(message);
+    }
+}
+
