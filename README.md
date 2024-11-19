@@ -1,9 +1,5 @@
 
-Sorteo de Equipos de futbol
-=======
-
->>>>>>>SORTEO DE DE EQUIPOS DE FUTBOL
-# **Gestión de Torneos de Fútbol**
+>>>>>>>GESTION DE TORNEO DE EQUIPOS DE FUTBOL
 
 ## **Descripción**
 Esta aplicación permite gestionar de manera eficiente un torneo de fútbol, desde el ingreso de equipos hasta la determinación del campeón. El programa guía al usuario a través de las diferentes etapas del torneo (octavos, cuartos, semifinales y final), permitiéndole seleccionar los ganadores de cada partido. Los resultados se guardan en un archivo de texto legible, que incluye los enfrentamientos, ganadores por etapa y el equipo campeón.
