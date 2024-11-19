@@ -1,10 +1,26 @@
 RESULTADOS DEL TORNEO:
 
+=== Octavos de Final ===
+Dragones Verdes VS Solo Panas -> Ganador: Dragones Verdes
+Los Escorpiones VS Aves Fenix -> Ganador: Aves Fenix
+Osos Polares VS Los Inalcanzables -> Ganador: Osos Polares
+Halcones Dorados VS Toros Bravos -> Ganador: Toros Bravos
+Tigres FC VS Aguilas United -> Ganador: Aguilas United
+Pumas Blancos VS Panteras Negras -> Ganador: Pumas Blancos
+Tiburones Azules VS Lobos Salvajes -> Ganador: Lobos Salvajes
+Leones Rojos VS Siempre Unidos -> Ganador: Leones Rojos
+
+=== Cuartos de Final ===
+Dragones Verdes VS Osos Polares -> Ganador: Dragones Verdes
+Pumas Blancos VS Lobos Salvajes -> Ganador: Lobos Salvajes
+Toros Bravos VS Aguilas United -> Ganador: Aguilas United
+Aves Fenix VS Leones Rojos -> Ganador: Leones Rojos
+
 === Semifinales ===
-C VS B -> Ganador: C
-D VS A -> Ganador: A
+Dragones Verdes VS Leones Rojos -> Ganador: Leones Rojos
+Lobos Salvajes VS Aguilas United -> Ganador: Lobos Salvajes
 
 === Final ===
-A VS C -> Ganador: A
+Leones Rojos VS Lobos Salvajes -> Ganador: Lobos Salvajes
 
-== CAMPEÓN DEL TORNEO: A ==
+== CAMPEÓN DEL TORNEO: Lobos Salvajes ==

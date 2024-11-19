@@ -62,7 +62,7 @@ public class Equipo {
                 }
             }
         }
-        return equipos;
+        return equipos; //Retornar la lista de Equipos
     }
 }
 
